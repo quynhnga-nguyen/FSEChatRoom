@@ -21,15 +21,12 @@
 		}
 
 		$(document).ready(function() {
-			var name = getParams("name"); //TODO: handle null case
-			console.log(name);
-			var socket = io.connect("http://localhost:8080");
-
+		  	var name = getParams("name"); //TODO: handle null case
+		  	var socket = io.connect("http://localhost:8080");
 		  	socket.emit("join", name);
 
 		  	socket.on("newUser", function(name){
 		  		// announces new user joined the chat room
-		  		console.log("new user");
 		  		var div = $("<div></div>").addClass("messageDisplay");
 		  		var messageP = $("<p></p>").text(name + " joined the room.");
 		  		div.append(messageP);
@@ -38,13 +35,14 @@
 		  
 		  	$("#postMessage").click(function() {
 		  		var message = $("#messageInputBox").val();
-		  		console.log(message);
-		  		socket.emit("message", message);
-		  		$("#messageInputBox").val(""); // clears text area after submitting
+		  		if (message !== "") {
+			  		socket.emit("newMessage", message);
+			  		$("#messageInputBox").val(""); // clears text area after submitting
+			  	}
 		  	});
 
 		  	// receives message from the server
-		  	socket.on("newMessage", function(user, message, time) {
+		  	socket.on("message", function(user, message, time) {
 		  		// inserts message to the screen
 		  		var div = $("<div></div>").addClass("messageDisplay");
 		  		var nameSpan = $("<span></span>").addClass("name").text(user);
@@ -55,6 +53,15 @@
 		  		div.append(messageP);
 		  		$("#chatLog").append(div);
 		  	});
+
+		  	socket.on("exit", function(name) {
+		  		if (name !== null) {
+					var div = $("<div></div>").addClass("messageDisplay");
+			  		var messageP = $("<p></p>").text(name + " left the room.");
+			  		div.append(messageP);
+			  		$("#chatLog").append(div);
+			  	}
+		  	});
 		});
 	</script>
 
@@ -62,24 +69,6 @@
 	<body>
 		<div id="wrapper">
 			<div id="chatLog">
-				<div class="messageDisplay">
-					<span class="name">Hakan</span>
-					<span class="time">01.01.2015 9:30AM</span>
-					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
-				</div>
-
-				<div class="messageDisplay">
-					<span class="name">Hakan</span>
-					<span class="time">01.01.2015 9:30AM</span>
-					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
-				</div>
-
-				<div class="messageDisplay">
-					<span class="name">Hakan</span>
-					<span class="time">01.01.2015 9:30AM</span>
-					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
-				</div>
-
 				<div class="messageDisplay">
 					<span class="name">Hakan</span>
 					<span class="time">01.01.2015 9:30AM</span>
