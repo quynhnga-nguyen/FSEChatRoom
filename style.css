@@ -1,0 +1,72 @@
+html, body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+#wrapper {
+	padding-top: 0;
+	padding-bottom: 200px;
+	padding-left: 0;
+	padding-right: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.buttonContainer {
+	background-color: LightGray;
+	text-align: center;
+	margin: 0px;
+}
+
+.buttonContainer button {
+	background-color: Blue;
+	color: White;
+	padding: 13px 35px 13px 35px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+#chatLog {
+	overflow: scroll;
+	height: 100%;
+}
+
+.footer {
+	width: 100%;
+	height: 200px;
+	margin-bottom: -200px;
+}
+
+.messageDisplay {
+	margin: 5px 25px 0px 25px;
+	background-color: LightGray;
+	padding: 10px;
+}
+
+.messageInputArea {
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+#messageInputBox {
+	background-color: LightBlue;
+	border: none;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.name {
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+.time {
+	float: right;
+}

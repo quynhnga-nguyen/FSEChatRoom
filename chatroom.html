@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>FSE Chat Room</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+
+	<script>
+		function getParams(key) {
+			var items = window.location.search.substr(1).split('&');
+			for (var i = 0; i < items.length; i++) {
+				var item = items[i].split('=');
+				if (item[0] === key) {
+					return item[1];
+				}
+			}
+			return null;
+		}
+
+		$(document).ready(function() {
+			var name = getParams("name"); //TODO: handle null case
+			console.log(name);
+			var socket = io.connect("http://localhost:8080");
+
+		  	socket.emit("join", name);
+
+		  	socket.on("newUser", function(name){
+		  		// announces new user joined the chat room
+		  		console.log("new user");
+		  		var div = $("<div></div>").addClass("messageDisplay");
+		  		var messageP = $("<p></p>").text(name + " joined the room.");
+		  		div.append(messageP);
+		  		$("#chatLog").append(div);
+		  	});
+		  
+		  	$("#postMessage").click(function() {
+		  		var message = $("#messageInputBox").val();
+		  		console.log(message);
+		  		socket.emit("message", message);
+		  		$("#messageInputBox").val(""); // clears text area after submitting
+		  	});
+
+		  	// receives message from the server
+		  	socket.on("newMessage", function(user, message, time) {
+		  		// inserts message to the screen
+		  		var div = $("<div></div>").addClass("messageDisplay");
+		  		var nameSpan = $("<span></span>").addClass("name").text(user);
+		  		var timeSpan = $("<span></span").addClass("time").text(time);
+		  		var messageP = $("<p></p>").addClass("message").text(message);
+		  		div.append(nameSpan);
+		  		div.append(timeSpan);
+		  		div.append(messageP);
+		  		$("#chatLog").append(div);
+		  	});
+		});
+	</script>
+
+
+	<body>
+		<div id="wrapper">
+			<div id="chatLog">
+				<div class="messageDisplay">
+					<span class="name">Hakan</span>
+					<span class="time">01.01.2015 9:30AM</span>
+					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
+				</div>
+
+				<div class="messageDisplay">
+					<span class="name">Hakan</span>
+					<span class="time">01.01.2015 9:30AM</span>
+					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
+				</div>
+
+				<div class="messageDisplay">
+					<span class="name">Hakan</span>
+					<span class="time">01.01.2015 9:30AM</span>
+					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
+				</div>
+
+				<div class="messageDisplay">
+					<span class="name">Hakan</span>
+					<span class="time">01.01.2015 9:30AM</span>
+					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
+				</div>
+
+				<div class="messageDisplay">
+					<span class="name">Hakan</span>
+					<span class="time">01.01.2015 9:30AM</span>
+					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
+				</div>
+			</div>
+
+			<div class="footer">
+				<div class="messageInputArea">
+					<textarea id="messageInputBox" rows="8"></textarea>
+				</div>
+
+				<div class="buttonContainer">
+					<button id="postMessage">POST</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
