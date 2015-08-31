@@ -13,15 +13,22 @@ This file is the front page where user provides name to enter the chatroom.
 		<link rel="icon" type="image/png" href="FSEChatroomFavicon.png">
 	</head>
 
-	<body id="indexPage">
-		<h1>Welcome to FSE Chat Room!</h1>
+	<body>
+		<div class="wrapper">
+			<h1 id="welcome">Welcome to FSE Chat Room!</h1>
 
-		<h2>Please enter your name</h2>
-		<form method="GET" action="chatroom">
-			<input name="name" type="text" size="24" />
-			<button>Enter Chat Room</button>
-		</form>
+			<h2>Please enter your name</h2>
+			<form method="GET" action="chatroom">
+				<div id="nameInputArea">
+					<input id="nameInputBox" name="name" type="text" size="24" />
+				</div>
 
-		<div id="errorArea"></div>
+				<div class="buttonContainer">
+					<button>ENTER CHAT ROOM</button>
+				</div>
+			</form>
+
+			<div id="errorArea"></div>
+		</div>
 	</body>
 </html>
