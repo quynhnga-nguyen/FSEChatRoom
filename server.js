@@ -1,3 +1,10 @@
+/*
+QUYNH NGA NGUYEN - ID: 700110099
+Project FSE Chatroom - 18-652
+Server-side file handles requests from clien-side.
+*/
+
+
 var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);

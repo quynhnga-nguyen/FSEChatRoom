@@ -1,3 +1,10 @@
+<!-- 
+QUYNH NGA NGUYEN - ID: 700110099
+Project FSE Chatroom - 18-652
+This file is the main chatroom page where logged in user can post and receive
+messages.
+-->
+
 <!DOCTYPE html>
 
 <html>
@@ -6,7 +13,25 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<link rel="icon" type="image/png" href="FSEChatroomFavicon.png">
 	</head>
+
+	<body>
+		<div id="wrapper">
+			<div id="chatLog">
+			</div>
+
+			<div class="footer">
+				<div class="messageInputArea">
+					<textarea id="messageInputBox" rows="8" placeholder="Type your message here"></textarea>
+				</div>
+
+				<div class="buttonContainer">
+					<button id="postMessage">POST</button>
+				</div>
+			</div>
+		</div>
+	</body>
 
 	<script>
 		function getParams(key) {
@@ -65,32 +90,4 @@
 		});
 	</script>
 
-
-	<body>
-		<div id="wrapper">
-			<div id="chatLog">
-				<div class="messageDisplay">
-					<span class="name">Hakan</span>
-					<span class="time">01.01.2015 9:30AM</span>
-					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
-				</div>
-
-				<div class="messageDisplay">
-					<span class="name">Hakan</span>
-					<span class="time">01.01.2015 9:30AM</span>
-					<p class="message">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</p>
-				</div>
-			</div>
-
-			<div class="footer">
-				<div class="messageInputArea">
-					<textarea id="messageInputBox" rows="8"></textarea>
-				</div>
-
-				<div class="buttonContainer">
-					<button id="postMessage">POST</button>
-				</div>
-			</div>
-		</div>
-	</body>
 </html>

@@ -1,18 +1,27 @@
+<!-- 
+QUYNH NGA NGUYEN - ID: 700110099
+Project FSE Chatroom - 18-652
+This file is the front page where user provides name to enter the chatroom.
+-->
+
 <!DOCTYPE html>
 
 <html>
 	<head>
 		<title>FSE Chat Room</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="icon" type="image/png" href="FSEChatroomFavicon.png">
 	</head>
 
-	<body>
+	<body id="indexPage">
 		<h1>Welcome to FSE Chat Room!</h1>
 
 		<h2>Please enter your name</h2>
 		<form method="GET" action="chatroom">
-			<input class="nameBox" name="name" type="text" size="24" />
-			<button id="submitName">Enter Chat Room</button>
+			<input name="name" type="text" size="24" />
+			<button>Enter Chat Room</button>
 		</form>
+
+		<div id="errorArea"></div>
 	</body>
 </html>
