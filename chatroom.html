@@ -77,6 +77,10 @@ messages.
 		  		div.append(timeSpan);
 		  		div.append(messageP);
 		  		$("#chatLog").append(div);
+
+		  		// scroll down to the bottom
+		  		var chatLogDiv = $("#chatLog")[0];
+				chatLogDiv.scrollTop = chatLogDiv.scrollHeight;
 		  	});
 
 		  	socket.on("exit", function(name) {
