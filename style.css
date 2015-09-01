@@ -15,8 +15,11 @@ body {
 }
 
 .buttonContainer {
-	text-align: center;
 	margin: 0px;
+}
+
+.buttonContainer, #errorArea, h1, h2, #logo, #nameInputArea {
+	text-align: center;
 }
 
 .buttonContainer button {
@@ -34,15 +37,15 @@ body {
 
 #errorArea {
 	margin-bottom: 40px;
-	text-align: center;
 }
 
 .footer {
 	width: 100%;
 }
 
-h1, h2 {
-	text-align: center;
+#logoSource {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .messageDisplay, #messageInputArea {
@@ -74,7 +77,6 @@ h1, h2 {
 }
 
 #nameInputArea {
-	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -93,7 +95,8 @@ h1, h2 {
 }
 
 #welcome {
-	margin-bottom: 150px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .wrapper {

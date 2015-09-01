@@ -27,6 +27,10 @@ app.get("/style.css", function(req, res) {
 	res.sendFile(__dirname + "/style.css");
 });
 
+app.get("/FSEChatroomLogo.png", function(req, res) {
+	res.sendFile(__dirname + "/FSEChatroomLogo.png");
+});
+
 db.serialize(function() {
 	if (!existed) {
 		db.run("CREATE TABLE chatHistory (name TEXT, message TEXT, time TEXT)");

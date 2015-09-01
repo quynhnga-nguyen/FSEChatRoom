@@ -11,11 +11,16 @@ This file is the front page where user provides name to enter the chatroom.
 		<title>FSE Chat Room</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="icon" type="image/png" href="FSEChatroomLogo.png">
 	</head>
 
 	<body>
 		<div class="wrapper">
 			<h1 id="welcome">Welcome to FSE Chat Room!</h1>
+
+			<div id="logo">
+				<img src="FSEChatroomLogo.png" alt="FSE Chat Room Logo" height="200" width="200">
+			</div>
 
 			<h2>Please enter your name</h2>
 			<form method="GET" action="chatroom">
@@ -29,6 +34,10 @@ This file is the front page where user provides name to enter the chatroom.
 					<button id="enterButton">ENTER CHAT ROOM</button>
 				</div>
 			</form>
+
+			<p id="logoSource">
+				The logo is taken free at <a href="https://www.iconfinder.com/icons/206461/chat_keynote_messages_icon#size=128">iconfinder.</a>
+			</p>
 		</div>
 	</body>
 </html>
