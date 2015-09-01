@@ -13,7 +13,6 @@ messages.
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
-		<link rel="icon" type="image/png" href="FSEChatroomFavicon.png">
 	</head>
 
 	<body>
@@ -32,66 +31,74 @@ messages.
 			</div>
 		</div>
 	</body>
-
-	<script>
-		function getParams(key) {
-			var items = window.location.search.substr(1).split('&');
-			for (var i = 0; i < items.length; i++) {
-				var item = items[i].split('=');
-				if (item[0] === key) {
-					return item[1];
-				}
-			}
-			return null;
-		}
-
-		$(document).ready(function() {
-		  	var name = getParams("name"); //TODO: handle null case
-		  	var socket = io.connect("http://localhost:8080");
-		  	socket.emit("join", name);
-
-		  	socket.on("newUser", function(name){
-		  		// announces new user joined the chat room
-		  		var div = $("<div></div>").addClass("messageDisplay");
-		  		var messageP = $("<p></p>").text(name + " joined the room.");
-		  		div.append(messageP);
-		  		$("#chatLog").append(div);
-		  	});
-		  
-		  	$("#postMessage").click(function() {
-		  		var message = $("#messageInputBox").val();
-		  		if (message !== "") {
-			  		socket.emit("newMessage", message);
-			  		$("#messageInputBox").val(""); // clears text area after submitting
-			  	}
-		  	});
-
-		  	// receives message from the server
-		  	socket.on("message", function(user, message, time) {
-		  		// inserts message to the screen
-		  		var div = $("<div></div>").addClass("messageDisplay");
-		  		var nameSpan = $("<span></span>").addClass("name").text(user);
-		  		var timeSpan = $("<span></span").addClass("time").text(time);
-		  		var messageP = $("<p></p>").addClass("message").text(message);
-		  		div.append(nameSpan);
-		  		div.append(timeSpan);
-		  		div.append(messageP);
-		  		$("#chatLog").append(div);
-
-		  		// scroll down to the bottom
-		  		var chatLogDiv = $("#chatLog")[0];
-				chatLogDiv.scrollTop = chatLogDiv.scrollHeight;
-		  	});
-
-		  	socket.on("exit", function(name) {
-		  		if (name !== null) {
-					var div = $("<div></div>").addClass("messageDisplay");
-			  		var messageP = $("<p></p>").text(name + " left the room.");
-			  		div.append(messageP);
-			  		$("#chatLog").append(div);
-			  	}
-		  	});
-		});
-	</script>
-
 </html>
+
+
+<script>
+	function getParams(key) {
+		var items = window.location.search.substr(1).split('&');
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i].split('=');
+			if (item[0] === key) {
+				return item[1];
+			}
+		}
+		return null;
+	}
+
+	$(document).ready(function() {
+	  	var name = getParams("name");
+	  	console.log(name);
+
+	  	var socket = io.connect("http://localhost:8080");
+	  	socket.emit("join", name);
+	  	console.log("after: " + name);
+
+	  	// If the name is already taken, redirects back to login page
+	  	socket.on("nameTaken", function(name) {
+	  		window.location.href = "/?error=nameTaken&name=" + name;
+	  	});
+
+	  	socket.on("newUser", function(name){
+	  		// announces new user joined the chat room
+	  		var div = $("<div></div>").addClass("messageDisplay");
+	  		var messageP = $("<p></p>").text(name + " joined the room.");
+	  		div.append(messageP);
+	  		$("#chatLog").append(div);
+	  	});
+	  
+	  	$("#postMessage").click(function() {
+	  		var message = $("#messageInputBox").val();
+	  		if (message !== "") {
+		  		socket.emit("newMessage", message);
+		  		$("#messageInputBox").val(""); // clears text area after submitting
+		  	}
+	  	});
+
+	  	// receives message from the server
+	  	socket.on("message", function(user, message, time) {
+	  		// inserts message to the screen
+	  		var div = $("<div></div>").addClass("messageDisplay");
+	  		var nameSpan = $("<span></span>").addClass("name").text(user);
+	  		var timeSpan = $("<span></span").addClass("time").text(time);
+	  		var messageP = $("<p></p>").addClass("message").text(message);
+	  		div.append(nameSpan);
+	  		div.append(timeSpan);
+	  		div.append(messageP);
+	  		$("#chatLog").append(div);
+
+	  		// scrolls down to the bottom
+	  		var chatLogDiv = $("#chatLog")[0];
+			chatLogDiv.scrollTop = chatLogDiv.scrollHeight;
+	  	});
+
+	  	socket.on("exit", function(name) {
+	  		if (name !== null) {
+				var div = $("<div></div>").addClass("messageDisplay");
+		  		var messageP = $("<p></p>").text(name + " left the room.");
+		  		div.append(messageP);
+		  		$("#chatLog").append(div);
+		  	}
+	  	});
+	});
+	</script>

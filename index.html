@@ -9,8 +9,8 @@ This file is the front page where user provides name to enter the chatroom.
 <html>
 	<head>
 		<title>FSE Chat Room</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<link rel="icon" type="image/png" href="FSEChatroomFavicon.png">
 	</head>
 
 	<body>
@@ -20,15 +20,54 @@ This file is the front page where user provides name to enter the chatroom.
 			<h2>Please enter your name</h2>
 			<form method="GET" action="chatroom">
 				<div id="nameInputArea">
-					<input id="nameInputBox" name="name" type="text" size="24" />
+					<input id="nameInputBox" name="name" type="text" size="24" placeholder="Type your name here"/>
 				</div>
+
+				<div id="errorArea"></div>
 
 				<div class="buttonContainer">
-					<button>ENTER CHAT ROOM</button>
+					<button id="enterButton">ENTER CHAT ROOM</button>
 				</div>
 			</form>
-
-			<div id="errorArea"></div>
 		</div>
 	</body>
 </html>
+
+
+
+<script>
+	$(document).ready(function() {
+		// if the name entered is empty, displays error message
+		$("#enterButton").click(function(event) {
+			var name = $("#nameInputBox").val();
+
+			if (name.trim() === "") {
+				event.preventDefault(); // do not enter chatroom
+
+				var errorP = $("<p></p>").text("Please enter a non-empty name.");
+				$("#errorArea").empty(); // removes previous messages
+				$("#errorArea").append(errorP);
+			}
+		});
+
+		// if the name is already taken, displays error message
+		if (getParams("error") === "nameTaken") {
+			var name = getParams("name");
+			var errorP = $("<p></p>").text("The name '" + name + "' is already taken. Please choose another.");
+			$("#errorArea").empty();
+			$("#errorArea").append(errorP);
+		}
+	});
+
+
+	function getParams(key) {
+		var items = window.location.search.substr(1).split('&');
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i].split('=');
+			if (item[0] === key) {
+				return item[1];
+			}
+		}
+		return null;
+	}
+</script>

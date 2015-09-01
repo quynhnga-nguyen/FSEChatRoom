@@ -32,6 +32,11 @@ body {
 	height: 100%;
 }
 
+#errorArea {
+	margin-bottom: 40px;
+	text-align: center;
+}
+
 .footer {
 	width: 100%;
 }
@@ -44,6 +49,7 @@ h1, h2 {
 	margin-left: 25px;
 	margin-right: 25px;
 }
+
 .messageDisplay {
 	margin-top: 5px;
 	margin-bottom: 0px;
@@ -58,6 +64,8 @@ h1, h2 {
 #messageInputBox, #nameInputBox {
 	border: none;
 	background-color: #C6E7F8;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #messageInputBox {
@@ -68,7 +76,7 @@ h1, h2 {
 #nameInputArea {
 	text-align: center;
 	margin-top: 10px;
-	margin-bottom: 50px;
+	margin-bottom: 10px;
 }
 
 #nameInputBox {

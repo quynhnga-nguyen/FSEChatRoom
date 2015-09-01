@@ -34,9 +34,24 @@ db.serialize(function() {
 });
 
 io.on("connection", function(socket) {
-	//TODO: handle name existed case
 	socket.on("join", function(name) {
-		socket.nickname = name; // sets the name associated with this client
+		// if name already taken, emits an error event back to chatroom 
+		var socketList = io.sockets.sockets;
+		var nameTaken = false;
+		for (var i = 0; i < socketList.length; i++) {
+			if (socketList[i].nickname === name) {
+				nameTaken = true;
+				break;
+			}
+		}
+
+		if (nameTaken) {
+			socket.emit("nameTaken", name);
+			return;
+		}
+
+		// accepts new user. Sets the name associated with this user
+		socket.nickname = name;
 		// announces new user
 		socket.broadcast.emit("newUser", name);
 		socket.emit("newUser", name);
@@ -67,7 +82,7 @@ io.on("connection", function(socket) {
 	});
 });
 
-// TODO: format
+
 function getTimeString() {
 	var date = new Date();
 	var ret = date.getMonth() + "." + date.getDate() + "." + date.getFullYear() + " ";
