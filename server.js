@@ -20,7 +20,6 @@ app.get("/", function(req, res) {
 
 app.get("/chatroom", function(req, res) {
 	res.sendFile(__dirname + "/chatroom.html");
-	// TODO: get chatroom before enter name
 });
 
 app.get("/style.css", function(req, res) {
