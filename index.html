@@ -50,7 +50,7 @@ This file is the front page where user provides name to enter the chatroom.
 		$("#enterButton").click(function(event) {
 			var name = $("#nameInputBox").val();
 
-			if (name.trim() === "") {
+			if (name === null || name.trim() === "") {
 				event.preventDefault(); // do not enter chatroom
 
 				var errorP = $("<p></p>").text("Please enter a non-empty name.");
